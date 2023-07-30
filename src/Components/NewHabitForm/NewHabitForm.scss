@@ -1,0 +1,74 @@
+@import '../../Styles/Variables.scss';
+
+.newHabit-container {
+
+    .newHabit-iconArrowLeft {
+        font-size: 3.2rem;
+        margin-bottom: 1.6rem;
+        cursor: pointer;
+
+        &:active {
+            position: relative;
+            top: 1px;
+        }
+    }
+
+    h1 {
+        font-size: 3.2rem;
+        font-weight: 800;
+        margin-bottom: 2.4rem;
+    }
+
+    h2 {
+        font-size: 1.6rem;
+        font-weight: 600;
+    }
+
+    .newHabit-input {
+        width: 32.6rem;
+        height: 5.2rem;
+        border-radius: $border-radius;
+        background: $zinc-800;
+        border: $zinc-900;
+        padding: 1.6rem;
+        outline: none;
+        font-size: 1.6rem;
+        font-weight: 400;
+        color: $color-text;
+        margin: 1.2rem 0 1.6rem;
+
+        &::placeholder {
+            color: $zinc-400;
+        }
+    }
+
+    .newHabit-checkbox {
+        display: flex;
+        flex-direction: column;
+        gap: 0.8rem;
+        margin: 1.2rem 0 2.4rem;
+    }
+
+    .newHabit-confirmBtn {
+        width: 32.6rem;
+        height: 5.2rem;
+        background: $green-check;
+        border-radius: $border-radius;
+        border: none;
+        color: $color-text;
+        display: flex;
+        gap: 1.2rem;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+
+        span {
+            font-weight: 700;
+        }
+
+        &:active {
+            position: relative;
+            top: 1px;
+        }
+    }
+}
