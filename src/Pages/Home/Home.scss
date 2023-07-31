@@ -6,3 +6,64 @@
     justify-content: center;
     height: 100vh;
 }
+
+thead {
+    tr {
+        display: flex;
+        gap: calc($gapDays + 0.4rem);
+
+        th {
+            width: $SquareSize;
+            height: $SquareSize;
+            font-size: 2rem;
+        }
+    }
+}
+
+tbody {
+    display: flex;
+    flex-direction: column;
+    gap: $gapDays;
+}
+
+.daysOfWeek-row {
+    display: flex;
+    gap: calc($gapDays + 0.4rem);
+    height: $SquareSize;
+    font-size: 2rem;
+}
+
+@mixin days {
+    width: $SquareSize;
+    height: $SquareSize;
+    background: $green-700;
+    border: 2px solid $green-500;
+    border-radius: $border-radius;
+    cursor: pointer;
+}
+
+.daysOfWeek {
+    @include days;
+}
+
+.daysOfWeek-empty {
+    @include days;
+    background: $zinc-900;
+    border: 2px solid $zinc-800;
+}
+
+span {
+    color: aliceblue;
+}
+
+.selectMonths {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 1.5rem;
+    padding: 1rem 3rem;
+
+    .icon {
+        cursor: pointer;
+    }
+}

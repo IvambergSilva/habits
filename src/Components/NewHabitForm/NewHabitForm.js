@@ -1,9 +1,12 @@
-import React from "react";
-
+import React, { useState } from "react";
 import './NewHabitForm.scss'
+
+import { toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.min.css';
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faCheck } from "@fortawesome/free-solid-svg-icons";
+
 import HabitDay from "../HabitDay/HabitDay";
 
 export default function NewHabit() {
@@ -14,8 +17,32 @@ export default function NewHabit() {
         'Quarta-feira',
         'Quinta-feira',
         'Sexta-feira',
-        'Sábado',
+        'Sábado'
     ]
+
+    const [daysSelected, setDaysSelected] = useState([])
+
+    const [title, setTitle] = useState('')
+
+    function handleCreateNewHabit() {
+        if (!title || daysSelected.length === 0) {
+            toast.warn('Está faltando algo 👀', { style: { fontSize: '2em'} })
+        }
+
+        console.log(daysSelected);
+    }
+
+    function handleToggleWeekDays(weekDay) {
+
+        if (daysSelected.includes(weekDay)) {
+            const newWeekDays = daysSelected.filter(day => day !== weekDay)
+            setDaysSelected(newWeekDays)
+        } else {
+            const newWeekDays = [...daysSelected, weekDay]
+            setDaysSelected(newWeekDays)
+        }
+
+    }
 
     return (
         <div className="newHabit-container">
@@ -32,15 +59,20 @@ export default function NewHabit() {
                 placeholder="Execícios, estudos, etc..."
                 className="newHabit-input"
                 autoFocus
+                onChange={(e) => setTitle(e.target.value)}
+                value={title}
             ></input>
 
             <h2>Qual a recorrência?</h2>
 
             <div className="newHabit-checkbox">
                 {
-                    daysOfWeek.map((weekDay) => {
+                    daysOfWeek.map((weekDay, index) => {
                         return (
-                            <div key={weekDay}>
+                            <div
+                                key={weekDay}
+                                onClick={() => handleToggleWeekDays(index)}
+                            >
                                 <HabitDay
                                     title={weekDay}
                                 />
@@ -50,7 +82,10 @@ export default function NewHabit() {
                 }
             </div>
 
-            <button className="newHabit-confirmBtn">
+            <button
+                className="newHabit-confirmBtn"
+                onClick={() => handleCreateNewHabit()}
+            >
                 <FontAwesomeIcon icon={faCheck}></FontAwesomeIcon>
                 <span>Confirmar</span>
             </button>

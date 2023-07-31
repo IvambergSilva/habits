@@ -4,7 +4,7 @@ import './Week.scss'
 export default function Week() {
     return (
         <>
-            <table className="daysOfWeek-table">
+            {/* <table className="daysOfWeek-table">
                 <tbody className="daysOfWeek-tbody">
                     <tr className="daysOfWeek-row">
                         <td class="daysOfWeek"></td>
@@ -16,7 +16,7 @@ export default function Week() {
                         <td class="daysOfWeek"></td>
                     </tr>
                 </tbody>
-            </table>
+            </table> */}
         </>
     )
 }
