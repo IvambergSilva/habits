@@ -9,7 +9,7 @@ import { faArrowLeft, faCheck } from "@fortawesome/free-solid-svg-icons";
 
 import HabitDay from "../HabitDay/HabitDay";
 
-export default function NewHabit() {
+export default function NewHabitForm() {
     const daysOfWeek = [
         'Domingo',
         'Segunda-feira',
@@ -20,20 +20,23 @@ export default function NewHabit() {
         'Sábado'
     ]
 
-    const [daysSelected, setDaysSelected] = useState([])
-
     const [title, setTitle] = useState('')
+
+    const [daysSelected, setDaysSelected] = useState([])
 
     function handleCreateNewHabit() {
         if (!title || daysSelected.length === 0) {
             toast.warn('Está faltando algo 👀', { style: { fontSize: '2em'} })
+        } else {
+            toast.success('Hábito incluído com sucesso! 🎉', { style: { fontSize: '2em'} })
+            setTitle('')
+            setDaysSelected([])    
         }
 
         console.log(daysSelected);
     }
 
     function handleToggleWeekDays(weekDay) {
-
         if (daysSelected.includes(weekDay)) {
             const newWeekDays = daysSelected.filter(day => day !== weekDay)
             setDaysSelected(newWeekDays)
@@ -41,7 +44,6 @@ export default function NewHabit() {
             const newWeekDays = [...daysSelected, weekDay]
             setDaysSelected(newWeekDays)
         }
-
     }
 
     return (

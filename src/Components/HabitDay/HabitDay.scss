@@ -1,11 +1,13 @@
 @import '../../Styles/Variables.scss';
 
 .habitDay-container {
-    display: flex;
+    display: grid;
+    grid-template-columns: $SquareSize auto;
     align-items: center;
-    gap: 3rem;
+    gap: 1.2rem;
     background: none;
     border: none;
+    width: 100%;
 
     .habitDay-checked {
         width: $SquareSize;
@@ -29,6 +31,10 @@
         font-size: 1.6rem;
         font-weight: 400;
         color: $color-text;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        text-align: left;
 
         &.checked {
             text-decoration: line-through;

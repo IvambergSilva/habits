@@ -3,7 +3,6 @@ import Home from "./Pages/Home/Home";
 
 import './Styles/Styles.scss'
 import { ToastContainer } from "react-toastify";
-import SpecificDay from "./Components/SpecificDay/SpecificDay";
 
 export default function App() {
     return (
@@ -12,7 +11,6 @@ export default function App() {
                 autoClose={1500}
             />
             <Home />
-            {/* <SpecificDay /> */}
         </>
     )
 }

@@ -15,6 +15,10 @@ export default function HabitDay(props) {
         setIsChecked(!isChecked)
     }
 
+    let commonsStyles = {}
+
+    if (props.font) commonsStyles = props.font
+
     return (
         <div>
             <Checkbox.Root
@@ -31,6 +35,7 @@ export default function HabitDay(props) {
 
                 <span
                     className={`habitDay-label ${isChecked && props.handleLabel ? "checked" : ""}`}
+                    style={commonsStyles}
                 >{props.title}</span>
 
             </Checkbox.Root>

@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { getWeeksInMonth } from "date-fns";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
-
 import './Home.scss';
+import NewHabitForm from "../../Components/NewHabitForm/NewHabitForm";
+import SpecificDay from "../../Components/SpecificDay/SpecificDay";
 
 export default function Home() {
 
@@ -60,48 +59,9 @@ export default function Home() {
     }, [month])
 
     return (
-        <div>
-            <div className="selectMonths">
-                <div className="icon" onClick={() => handleMonth("previousMonth")}>
-                    <FontAwesomeIcon icon={faArrowLeft}></FontAwesomeIcon>
-                </div>
-
-                <h2 className="monthName">{months[month]}</h2>
-
-                <div className="icon" onClick={() => handleMonth("nextMonth")}>
-                    <FontAwesomeIcon icon={faArrowRight}></FontAwesomeIcon>
-                </div>
-            </div>
-
-            <table>
-                <thead>
-                    <tr>
-                        {daysOfWeek.map((firstLetterDays, index) =>
-                            <th key={index}>{firstLetterDays[0]}</th>
-                        )}
-                    </tr>
-                </thead>
-
-                <tbody>
-                    {monthlyMatrix.map((week, index) => {
-                        return (
-                            <tr key={index} className="daysOfWeek-row">
-                                {week.map((day, index) => {
-                                    if (day !== 'X') {
-                                        return (
-                                            <td className="daysOfWeek" key={index}>{day}</td>
-                                        )
-                                    } else {
-                                        return (
-                                            <td className="daysOfWeek-empty" key={index}></td>
-                                        )
-                                    }
-                                })}
-                            </tr>
-                        )
-                    })}
-                </tbody>
-            </table>
+        <div className="newHabitForm">
+            {/* <NewHabitForm /> */}
+            <SpecificDay />
         </div>
     )
 }
