@@ -1,69 +1,156 @@
 @import '../../Styles/Variables.scss';
 
-.newHabitForm {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-}
+$colors: (
+    $zinc-800,
+    $green-300,
+    $green-400,
+    $green-500,
+    $green-600,
+    $green-700
+);
 
-thead {
-    tr {
-        display: flex;
-        gap: calc($gapDays + 0.4rem);
+$length: length($colors);
 
-        th {
-            width: $SquareSize;
-            height: $SquareSize;
-            font-size: 2rem;
-        }
-    }
-}
-
-tbody {
+.home-container {
     display: flex;
     flex-direction: column;
-    gap: $gapDays;
-}
-
-.daysOfWeek-row {
-    display: flex;
-    gap: calc($gapDays + 0.4rem);
-    height: $SquareSize;
-    font-size: 2rem;
-}
-
-@mixin days {
-    width: $SquareSize;
-    height: $SquareSize;
-    background: $green-700;
-    border: 2px solid $green-500;
-    border-radius: $border-radius;
-    cursor: pointer;
-}
-
-.daysOfWeek {
-    @include days;
-}
-
-.daysOfWeek-empty {
-    @include days;
-    background: $zinc-900;
-    border: 2px solid $zinc-800;
-}
-
-span {
-    color: aliceblue;
-}
-
-.selectMonths {
-    display: flex;
     align-items: center;
-    justify-content: space-between;
-    font-size: 1.5rem;
-    padding: 1rem 3rem;
+    justify-content: center;
+    max-width: 32.6rem;
+    margin: 5rem auto 0;
 
-    .icon {
+    header {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+
+        .logo-details {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            gap: 0.4rem;
+
+            div {
+                width: 1.6rem;
+                height: 1.6rem;
+                border-radius: 0.4rem;
+
+                @for $i from 1 through $length {
+                    &:nth-child(#{$i}) {
+                        background: nth($colors, $i);
+                    }
+                }
+            }
+        }
+
+        h1 {
+            margin-top: 1.2rem;
+            font-weight: 800;
+            font-size: 3.2rem;
+        }
+    }
+
+    .newHabit {
+        width: 10rem;
+        height: 4rem;
+        border-radius: 0.8rem;
+        color: $color-text;
+        font-weight: 600;
+        font-size: 1.6rem;
+        border: 1px solid $green-500;
         cursor: pointer;
+        background: transparent;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1.2rem;
+
+        &:active {
+            position: relative;
+            top: 1px;
+        }
+    }
+
+    .selectMonths {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 1.5rem;
+        padding: 1rem 3rem;
+        width: 100%;
+
+        .icon {
+            cursor: pointer;
+            font-size: 2rem;
+
+            &:active {
+                position: relative;
+                top: 1px;
+            }
+        }
+
+        h2 {
+            text-transform: capitalize;
+        }
+    }
+
+    table {
+        thead {
+            tr {
+                display: flex;
+                gap: calc($gapDays + 0.4rem);
+
+                th {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    width: $SquareSize;
+                    height: $SquareSize;
+                    font-size: 2rem;
+                }
+            }
+        }
+
+        tbody {
+            display: flex;
+            flex-direction: column;
+            gap: $gapDays;
+
+            .daysOfWeek-row {
+                display: grid;
+                grid-template-columns: repeat(7, 1fr);
+                gap: calc($gapDays + 0.4rem);
+                height: $SquareSize;
+            }
+
+            @mixin days {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 1.2rem;
+                width: $SquareSize;
+                height: $SquareSize;
+                background: $green-700;
+                border: 2px solid $green-500;
+                border-radius: $border-radius;
+                cursor: pointer;
+            }
+
+            .daysOfWeek {
+                @include days;
+            }
+
+            .daysOfWeek-empty {
+                @include days;
+                background: $zinc-900;
+                border: 2px solid $zinc-800;
+            }
+
+            .daysOfWeek-isToday {
+                @include days;
+                border: 2px solid $color-text;
+                background: rgba($green-500, 1.5);
+            }
+        }
     }
 }

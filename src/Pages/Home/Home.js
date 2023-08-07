@@ -1,67 +1,108 @@
-import React, { useEffect, useState } from "react";
-import { getWeeksInMonth } from "date-fns";
+import React, { useState } from "react";
+import { addMonths, eachDayOfInterval, endOfMonth, endOfWeek, format, startOfMonth, startOfWeek, subMonths } from "date-fns";
+import { ptBR } from "date-fns/locale";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowLeft, faArrowRight, faPlus } from "@fortawesome/free-solid-svg-icons";
+
+import NewHabitForm from '../../Components/NewHabitForm/NewHabitForm'
 
 import './Home.scss';
-import NewHabitForm from "../../Components/NewHabitForm/NewHabitForm";
-import SpecificDay from "../../Components/SpecificDay/SpecificDay";
 
 export default function Home() {
-
     const daysOfWeek = ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado']
 
-    const months = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro']
+    const [currentDate, setCurrentDate] = useState(new Date())
 
-    const currentYear = new Date().getFullYear()
+    const firstDay = startOfMonth(currentDate)
+    const lastDay = endOfMonth(currentDate)
+    const startDate = startOfWeek(firstDay)
+    const endDate = endOfWeek(lastDay)
 
-    const [month, selectMonth] = useState(new Date().getMonth() + 1)
+    const totalDate = eachDayOfInterval({ start: startDate, end: endDate })
 
-    const weekInMonth = getWeeksInMonth(new Date(currentYear, month, 1))
+    const formatOfYear = "yyyy"
+    const formatOfMonth = "MMM"
+    const formatOfDay = "d"
 
-    const [monthlyMatrix, setMonthlyMatrix] = useState([]);
+    const locale = ptBR
 
-    function handleCalendar() {
-        let matrix = new Array(weekInMonth);
+    const currentMonth = new Date().getMonth()
 
-        for (let i = 0; i < weekInMonth; i++) {
-            matrix[i] = new Array(7).fill(null)
-        }
-
-        const firstDateOfMonth = new Date(currentYear, month, 1)
-
-        const lastDaysOfMonth = new Date(currentYear, month, 0).getDate()
-
-        let count = 1
-
-        for (let i = 0; i < weekInMonth; i++) {
-            for (let j = 0; j < 7; j++) {
-                if (i === 0 && j < firstDateOfMonth.getDay()) {
-                    matrix[i][j] = 'X'
-                }
-                else if (count <= lastDaysOfMonth) {
-                    matrix[i][j] = count
-                    count++
-                } else {
-                    matrix[i][j] = 'X'
-                }
-            }
-        }
-        setMonthlyMatrix(matrix);
-    }
-
-    function handleMonth(action) {
-        action === "previousMonth" ? selectMonth(month - 1) : selectMonth(month + 1)
-        handleCalendar()
-    }
-
-
-    useEffect(() => {
-        handleCalendar()
-    }, [month])
+    const [modalNewHabit, setModalNewHabit] = useState(false)
 
     return (
-        <div className="newHabitForm">
-            {/* <NewHabitForm /> */}
-            <SpecificDay />
-        </div>
+        <div className="home-container">
+            {!modalNewHabit &&
+                <div>
+                    <header>
+                        <div className="logo">
+                            <div className="logo-details">
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                            </div>
+                            <h1>Hábitos</h1>
+                        </div>
+                        <button
+                            className="newHabit"
+                            onClick={() => setModalNewHabit(true)}
+                        >
+                            <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
+                            <span>Novo</span>
+                        </button>
+                    </header>
+
+                    <div className="selectMonths">
+                        <div className="icon" onClick={() => setCurrentDate(subMonths(currentDate, 1))}>
+                            <FontAwesomeIcon icon={faArrowLeft}></FontAwesomeIcon>
+                        </div>
+
+                        <h2 className="monthName">{format(currentDate, formatOfMonth, { locale })}/{format(currentDate, formatOfYear)}</h2>
+
+                        <div className="icon" onClick={() => setCurrentDate(addMonths(currentDate, 1))}>
+                            <FontAwesomeIcon icon={faArrowRight}></FontAwesomeIcon>
+                        </div>
+                    </div>
+
+                    <table>
+                        <thead>
+                            <tr>
+                                {daysOfWeek.map((firstLetterDays, index) =>
+                                    <th key={index}>{firstLetterDays[0]}</th>
+                                )}
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr className="daysOfWeek-row">
+                                {totalDate.map((date, index) => {
+                                    const isCurrentMonth = date.getMonth() === firstDay.getMonth()
+                                    const isToday = date.getDate() === new Date().getDate();
+
+                                    let className = ""
+
+                                    if (isToday && date.getMonth() === currentMonth) className = "-isToday";
+                                    else if (!isCurrentMonth) className = "-empty";
+
+                                    return (
+                                        <td
+                                            key={index}
+                                            className={`daysOfWeek${className}`}
+                                        >
+                                            {format(date, formatOfDay)}
+                                        </td>
+                                    )
+                                })}
+                            </tr>
+                        </tbody>
+                    </table >
+                </div>
+            }
+            {modalNewHabit && <NewHabitForm />}
+        </div >
     )
 }
