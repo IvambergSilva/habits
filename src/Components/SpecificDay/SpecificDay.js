@@ -6,7 +6,7 @@ import HabitDay from "../HabitDay/HabitDay";
 
 import './SpecificDay.scss'
 
-export default function SpecificDay() {
+export default function SpecificDay(props) {
     const fontStylesLabel = {
         fontSize: "2",
         fontWeight: "600"
@@ -55,13 +55,16 @@ export default function SpecificDay() {
     }, [handleProgressBar]);
 
     return (
-        <div>
-            <div className="iconArrowLeft">
+        <div className="specificDay-container">
+            <div
+                className="iconArrowLeft"
+                onClick={() => props.informationState(false)}
+            >
                 <FontAwesomeIcon icon={faArrowLeft} ></FontAwesomeIcon>
             </div>
 
-            <h2>terça-feira</h2>
-            <h1>03/01</h1>
+            <h2>{props.informationSent.daysOfWeek}</h2>
+            <h1>{props.informationSent.date}</h1>
 
             <div className="newHabit-progressBar">
                 <div
@@ -73,18 +76,25 @@ export default function SpecificDay() {
                 ></div>
             </div>
 
-            <div className="newHabit-habits">
-                {habits.map((habit, index) => {
-                    return (
-                        <div key={index} onClick={() => handleToggleWeekDays(index)}>
-                            <HabitDay
-                                title={habit.title}
-                                font={fontStylesLabel}
-                            />
-                        </div>
-                    )
-                })}
-            </div>
+
+            {habits.length === 0
+                ? <div className="newHabit-noHabits">
+                    <p>Você ainda não está monitorando nenhum hábito, comece <strong>cadastrando um</strong>.</p>
+                </div>
+                
+                : <div className="newHabit-habits">
+                    {habits.map((habit, index) => {
+                        return (
+                            <div key={index} onClick={() => handleToggleWeekDays(index)}>
+                                <HabitDay
+                                    title={habit.title}
+                                    font={fontStylesLabel}
+                                />
+                            </div>
+                        )
+                    })}
+                </div>
+            }
         </div>
     )
 }

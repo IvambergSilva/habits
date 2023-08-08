@@ -1,48 +1,66 @@
 @import '../../Styles/Variables.scss';
 
-
-.iconArrowLeft {
-    font-size: 3.2rem;
-    margin-bottom: 1.6rem;
-    cursor: pointer;
-
-    &:active {
-        position: relative;
-        top: 1px;
-    }
-}
-
-h2 {
-    font-size: 1.6rem;
-    font-weight: 600;
-    color: $zinc-400;
-    margin: 0.8rem 0 1.6rem;
-}
-
-h1 {
-    font-size: 3.2rem;
-    font-weight: 800;
-}
-
-.newHabit-progressBar {
-    margin: 1.6rem 0 2.4rem;
+.specificDay-container {
     width: 100%;
-    background: $zinc-700;
-    border-radius: 0.6rem;
-    height: 1.2rem;
-    overflow: hidden;
+    
+    .iconArrowLeft {
+        font-size: 3.2rem;
+        margin-bottom: 1.6rem;
+        cursor: pointer;
 
-    .newHabit-progress {
-        width: 0%;
-        height: 1.2rem;
-        border-radius: 0.6rem;
-        background: $green-600;
+        &:active {
+            position: relative;
+            top: 1px;
+        }
     }
-}
 
-.newHabit-habits {
-    display: flex;
-    flex-direction: column;
-    gap: 1.2rem;
-    width: 25rem;
+    h2 {
+        font-size: 1.6rem;
+        font-weight: 600;
+        color: $zinc-400;
+        margin: 0.8rem 0 1.6rem;
+    }
+
+    h1 {
+        font-size: 3.2rem;
+        font-weight: 800;
+    }
+
+    .newHabit-progressBar {
+        margin: 1.6rem 0 2.4rem;
+        width: 100%;
+        background: $zinc-700;
+        border-radius: 0.6rem;
+        height: 1.2rem;
+        overflow: hidden;
+
+        .newHabit-progress {
+            width: 0%;
+            height: 1.2rem;
+            border-radius: 0.6rem;
+            background: $green-600;
+        }
+    }
+
+    .newHabit-habits {
+        display: flex;
+        flex-direction: column;
+        gap: 1.2rem;
+        width: 25rem;
+    }
+
+    .newHabit-noHabits {
+        p {
+            font-weight: 400;
+            font-size: 16px;
+            text-align: justify;
+
+            strong {
+                font-weight: 400;
+                text-decoration: underline;
+                color: $green-400;
+                cursor: pointer;
+            }
+        }
+    }
 }

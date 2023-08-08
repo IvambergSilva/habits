@@ -15,3 +15,10 @@ body {
     background: #09090A;
     color:aliceblue
 }
+
+.app-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 5rem;
+}

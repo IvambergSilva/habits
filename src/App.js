@@ -6,11 +6,11 @@ import { ToastContainer } from "react-toastify";
 
 export default function App() {
     return (
-        <>
+        <div className="app-container">
             <ToastContainer
                 autoClose={1500}
             />
             <Home />
-        </>
+        </div>
     )
 }

@@ -7,6 +7,8 @@ import { faArrowLeft, faArrowRight, faPlus } from "@fortawesome/free-solid-svg-i
 
 import NewHabitForm from '../../Components/NewHabitForm/NewHabitForm'
 
+import SpecificDay from "../../Components/SpecificDay/SpecificDay";
+
 import './Home.scss';
 
 export default function Home() {
@@ -31,9 +33,31 @@ export default function Home() {
 
     const [modalNewHabit, setModalNewHabit] = useState(false)
 
+    const [modalSpecificDay, setModalSpecificDay] = useState(false)
+
+    const [informationSent, setInformationSent] = useState({})
+
+    const closeNewHabitForm = state => {
+        setModalNewHabit(state)
+    }
+
+    const closeSpecificDay = state => {
+        setModalSpecificDay(state)
+    }
+
+    function sendInformation(date) {
+        console.log(format(date, "dd/MM"));
+        const informations = {
+            daysOfWeek: daysOfWeek[date.getDay()],
+            date: format(date, "dd/MM")
+        }
+        setInformationSent(informations)
+        setModalSpecificDay(true)
+    }
+
     return (
         <div className="home-container">
-            {!modalNewHabit &&
+            {!modalNewHabit && !modalSpecificDay &&
                 <div>
                     <header>
                         <div className="logo">
@@ -51,6 +75,8 @@ export default function Home() {
                             className="newHabit"
                             onClick={() => setModalNewHabit(true)}
                         >
+                            <div></div>
+                            
                             <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
                             <span>Novo</span>
                         </button>
@@ -92,6 +118,7 @@ export default function Home() {
                                         <td
                                             key={index}
                                             className={`daysOfWeek${className}`}
+                                            onClick={() => sendInformation(date)}
                                         >
                                             {format(date, formatOfDay)}
                                         </td>
@@ -102,7 +129,13 @@ export default function Home() {
                     </table >
                 </div>
             }
-            {modalNewHabit && <NewHabitForm />}
+            {modalNewHabit && <NewHabitForm
+                informationState={closeNewHabitForm}
+            />}
+            {modalSpecificDay && <SpecificDay
+                informationState={closeSpecificDay}
+                informationSent={informationSent}
+            />}
         </div >
     )
 }

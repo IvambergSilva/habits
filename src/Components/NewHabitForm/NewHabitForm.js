@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import './NewHabitForm.scss'
 
 import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.min.css';
@@ -9,7 +8,9 @@ import { faArrowLeft, faCheck } from "@fortawesome/free-solid-svg-icons";
 
 import HabitDay from "../HabitDay/HabitDay";
 
-export default function NewHabitForm() {
+import './NewHabitForm.scss'
+
+export default function NewHabitForm(props) {
     const daysOfWeek = [
         'Domingo',
         'Segunda-feira',
@@ -26,11 +27,12 @@ export default function NewHabitForm() {
 
     function handleCreateNewHabit() {
         if (!title || daysSelected.length === 0) {
-            toast.warn('Está faltando algo 👀', { style: { fontSize: '2em'} })
+            toast.warn('Está faltando algo 👀', { style: { fontSize: '2em' } })
+
         } else {
-            toast.success('Hábito incluído com sucesso! 🎉', { style: { fontSize: '2em'} })
+            toast.success('Hábito incluído com sucesso! 🎉', { style: { fontSize: '2em' } })
             setTitle('')
-            setDaysSelected([])    
+            setDaysSelected([])
         }
 
         console.log(daysSelected);
@@ -48,7 +50,10 @@ export default function NewHabitForm() {
 
     return (
         <div className="newHabit-container">
-            <div className="newHabit-iconArrowLeft">
+            <div
+                className="newHabit-iconArrowLeft"
+                onClick={() => props.informationState(false)}
+            >
                 <FontAwesomeIcon icon={faArrowLeft} ></FontAwesomeIcon>
             </div>
 
