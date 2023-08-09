@@ -10,6 +10,8 @@ import NewHabitForm from '../../Components/NewHabitForm/NewHabitForm'
 import SpecificDay from "../../Components/SpecificDay/SpecificDay";
 
 import './Home.scss';
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../../Database/firebaseConnection";
 
 export default function Home() {
     const daysOfWeek = ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado']
@@ -45,14 +47,28 @@ export default function Home() {
         setModalSpecificDay(state)
     }
 
-    function sendInformation(date) {
-        console.log(format(date, "dd/MM"));
-        const informations = {
-            daysOfWeek: daysOfWeek[date.getDay()],
-            date: format(date, "dd/MM")
-        }
-        setInformationSent(informations)
-        setModalSpecificDay(true)
+    const [habitOfDay, setHabitOfDay] = useState([{}])
+
+    async function sendInformation(date) {
+        
+        const clickDay = await getDocs(collection(db, "August"))
+        
+        await clickDay.forEach((days) => {
+            if(days.data().day === date.getDate()) {
+                
+                const habitsOfDay = days.data().habits
+                setHabitOfDay(habitsOfDay)
+                setModalSpecificDay(true)
+   
+                const informations = {
+                    daysOfWeek: daysOfWeek[date.getDay()],
+                    date: format(date, "dd/MM"),
+                    habits: habitOfDay
+                }
+
+                setInformationSent(informations)
+            }
+        }) 
     }
 
     return (

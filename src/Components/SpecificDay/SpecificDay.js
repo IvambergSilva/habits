@@ -15,13 +15,7 @@ export default function SpecificDay(props) {
     const [progressBar, setProgressBar] = useState(0)
     const [colorBar, setColorBar] = useState('')
 
-    const [habits, setHabits] = useState([
-        { title: "Estudar React" },
-        { title: "Estudar Angular" },
-        { title: "Estudar Next.js" },
-        { title: "Estudar Node" },
-        { title: "Estudar SQL" },
-    ])
+    const habits = props.informationSent.habits
 
     const [habitsSelected, setHabitsSelected] = useState([])
 
@@ -83,11 +77,12 @@ export default function SpecificDay(props) {
                 </div>
                 
                 : <div className="newHabit-habits">
-                    {habits.map((habit, index) => {
+                    {
+                    habits.map((habit, index) => {
                         return (
                             <div key={index} onClick={() => handleToggleWeekDays(index)}>
                                 <HabitDay
-                                    title={habit.title}
+                                    title={habit.habit}
                                     font={fontStylesLabel}
                                 />
                             </div>
